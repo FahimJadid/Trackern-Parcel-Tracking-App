@@ -1,4 +1,6 @@
 import express from "express";
+import { validationHandler } from "../middlewares/validationHandler.js";
+import validators from "../models/view_models/indexViewModel.js";
 import {
   saveUser,
   getAllUsers,
@@ -48,7 +50,7 @@ const deleteHandler = async (req, res, next) => {
 };
 
 router.get("/", getHandler);
-router.post("/", postHandler);
+router.post("/", validationHandler(validators.userSchemaValidate), postHandler);
 router.put("/", putHandler);
 router.delete("/:id", deleteHandler);
 
